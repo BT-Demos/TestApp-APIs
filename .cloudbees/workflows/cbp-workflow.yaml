@@ -1,0 +1,62 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: cbp-workflow
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    steps:
+      - name: Compile Code
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Compiling..."
+
+      - name: Produce Binary
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: sleep 5
+
+      - name: Push binary
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Pushing Binary to ECR..."
+
+      - name: register-build-artifacts
+        uses: https://github.com/cloudbees-io/register-build-artifact@v1
+        with:
+          name: CBP App
+          version: 1.0.1
+          url: docker.io/MyApp/CBP App:1.0.1
+          digest: "sha256:l4a223ee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2"
+  test:
+    needs:
+      - build
+    steps:
+      - name: Run tests
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Running tests..."
+
+      - name: Collect test results
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: sleep 17
+
+      - name: Publish test results
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: echo "Sending Test Results to CBP"
+
+  deploy:
+    needs:
+      - build
+      - test
+    steps:
+      - name: Prepare Manifest
+        uses: cloudbees-io/checkout@v1
+
+      - name: Trigger Deployment
+        uses: cloudbees-io/workflows-dispatch@main
+        with:
+          workflows-dispatch-file: dispatch_requests.json
+          token: ${{ secrets.MY_PAT }}
