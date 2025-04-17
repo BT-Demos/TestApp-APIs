@@ -3,6 +3,6 @@
     "component_id": "e43fa5aa-b325-450a-8678-73b91b4dbed",
     "branch_name": "main",
     "workflow_file_name": "deploy.yaml",
-    "workflow-inputs": {"artifactName": "TestApp-Frontend","artifactVersion": "1.0.0", "environment": "qa"}
+    "workflow-inputs": {"artifactName": "TestApp-APIs","artifactVersion": "1.0.0", "environment": "qa"}
   }
 ]
