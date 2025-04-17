@@ -3,6 +3,10 @@
     "component_id": "f9536815-0fb6-40d7-902e-94e28e4578dd",
     "branch_name": "main",
     "workflow_file_name": "cbp-deploy.yaml",
-    "workflow-inputs": {"artifactName": "TestApp-APIs","artifactVersion": "2.0.0", "environment": "qa"}
+    "inputs": {
+      "artifactName": "TestApp-APIs",
+      "artifactVersion": "2.0.0",
+      "environment": "qa"
+    }
   }
 ]
