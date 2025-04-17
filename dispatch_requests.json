@@ -1,6 +1,6 @@
 [
   {
-    "component_id": "e43fa5aa-b325-450a-8678-73b91b4dbed",
+    "component_id": "f9536815-0fb6-40d7-902e-94e28e4578dd",
     "branch_name": "main",
     "workflow_file_name": "cbp-deploy.yaml",
     "workflow-inputs": {"artifactName": "TestApp-APIs","artifactVersion": "1.0.0", "environment": "qa"}
